@@ -30,5 +30,5 @@ spring:
   data:
     elasticsearch:
       cluster-name: es-cluster
-      cluster-nodes: 192.168.175.110:9300
+      cluster-nodes: 192.168.149.111:9300
 

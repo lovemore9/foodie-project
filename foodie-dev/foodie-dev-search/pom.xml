@@ -13,6 +13,12 @@
 
     <profiles>
         <profile>
+            <id>home</id>
+            <properties>
+                <environment>home</environment>
+            </properties>
+        </profile>
+        <profile>
             <id>local</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
