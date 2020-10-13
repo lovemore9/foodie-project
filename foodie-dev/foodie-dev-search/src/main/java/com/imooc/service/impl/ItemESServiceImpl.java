@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.imooc.es.pojo.Items;
 import com.imooc.es.pojo.Stu;
 import com.imooc.service.ItemESService;
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -26,6 +27,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ import java.util.Map;
  * Created on 2020-10-12 13:17
  * </pre>
  */
+@Slf4j
 @Service
 public class ItemESServiceImpl implements ItemESService {
 
@@ -46,6 +49,8 @@ public class ItemESServiceImpl implements ItemESService {
 
     @Override
     public PageInfo<Items> searchItems(String keywords, String sort, Integer pageNum, Integer pageSize) {
+        Date now = new Date();
+        log.info("ES查询开始：{}", now);
         //分页
         PageRequest pageRequest = PageRequest.of(pageNum, pageSize);
 
@@ -99,6 +104,9 @@ public class ItemESServiceImpl implements ItemESService {
         itemsPageInfo.setTotal(items.getTotalElements());
         itemsPageInfo.setPages(totalPages);
         itemsPageInfo.setList(items.getContent());
+        log.info("查询结果：{}", items.getContent());
+        Date date = new Date();
+        log.info("ES查询完毕：{}， 耗时：{}毫秒。", date, date.getTime() - now.getTime());
         return itemsPageInfo;
     }
 }
